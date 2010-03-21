@@ -58,7 +58,7 @@
     <Compile Include="LessThanOrEqualTo.cs" />
     <Compile Include="NotEqualTo.cs" />
     <Compile Include="Operator.cs" />
-    <Compile Include="Utilities\ContingentValidationModelBinder.cs" />
+    <Compile Include="Utilities\FoolproofModelBinder.cs" />
     <Compile Include="RequiredIfEmpty.cs" />
     <Compile Include="RequiredIfNotEmpty.cs" />
     <Compile Include="Utilities\ContingentValidator.cs" />
@@ -69,6 +69,11 @@
     <Compile Include="RequiredIfFalse.cs" />
     <Compile Include="RequiredIfNot.cs" />
     <Compile Include="RequiredIfTrue.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
