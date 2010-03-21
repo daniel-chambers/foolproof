@@ -8,7 +8,7 @@ namespace Foolproof
     public class RequiredIfNotEmptyAttribute : ContingentAttribute
     {
         public RequiredIfNotEmptyAttribute(string dependentProperty)
-            : base(dependentProperty) { ErrorMessage = "{0} is required since {1} is being supplied."; }
+            : base(dependentProperty) { ErrorMessage = "{1} is required."; ; }
 
         public override bool IsValid(object value, object container)
         {

@@ -13,6 +13,7 @@ namespace Foolproof
             : base(dependentProperty, dependentValue)
         {
             Operator = @operator;
+            ErrorMessage = "{1} is required.";
         }
 
         public override bool IsValid(object value, object container)
