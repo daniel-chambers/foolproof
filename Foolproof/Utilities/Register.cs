@@ -23,11 +23,12 @@ namespace Foolproof
             Attribute(typeof(GreaterThanOrEqaulToAttribute));
             Attribute(typeof(LessThanOrEqualToAttribute));
             Attribute(typeof(RequiredIfAttribute));
-            Attribute(typeof(RequiredIfNotAttribute));
             Attribute(typeof(RequiredIfTrueAttribute));
             Attribute(typeof(RequiredIfFalseAttribute));
             Attribute(typeof(RequiredIfEmptyAttribute));
-            Attribute(typeof(RequiredIfNotEmptyAttribute));            
+            Attribute(typeof(RequiredIfNotEmptyAttribute));
+            Attribute(typeof(RequiredIfValueAttribute));
+            Attribute(typeof(RequiredIfNotValueAttribute));            
         }
     }
 }

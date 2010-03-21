@@ -7,14 +7,19 @@ namespace Foolproof
 {
     public class RequiredIfAttribute : ConditionContingentAttribute
     {
-        public RequiredIfAttribute(string dependentProperty, object dependentValue)
-            : base(dependentProperty, dependentValue) { }
+        public Operator Operator { get; private set; }
+
+        public RequiredIfAttribute(string dependentProperty, Operator @operator, object dependentValue)
+            : base(dependentProperty, dependentValue)
+        {
+            Operator = @operator;
+        }
 
         public override bool IsValid(object value, object container)
         {
             var dependentPropertyValue = GetDependentPropertyValue(container);
 
-            if (dependentPropertyValue.Equals(DependentValue))
+            if (OperatorMetadata.Get(Operator).IsValid(dependentPropertyValue, DependentValue))
                 return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
 
             return true;

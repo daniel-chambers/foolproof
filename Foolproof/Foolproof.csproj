@@ -58,6 +58,8 @@
     <Compile Include="LessThanOrEqualTo.cs" />
     <Compile Include="NotEqualTo.cs" />
     <Compile Include="Operator.cs" />
+    <Compile Include="RequiredIfNotValue.cs" />
+    <Compile Include="RequiredIfValue.cs" />
     <Compile Include="Utilities\FoolproofModelBinder.cs" />
     <Compile Include="RequiredIfEmpty.cs" />
     <Compile Include="RequiredIfNotEmpty.cs" />
@@ -67,7 +69,6 @@
     <Compile Include="Utilities\Register.cs" />
     <Compile Include="RequiredIf.cs" />
     <Compile Include="RequiredIfFalse.cs" />
-    <Compile Include="RequiredIfNot.cs" />
     <Compile Include="RequiredIfTrue.cs" />
   </ItemGroup>
   <ItemGroup />
