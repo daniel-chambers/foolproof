@@ -15,12 +15,32 @@ namespace Foolproof
         {
             Operator = @operator;
             _metadata = OperatorMetadata.Get(Operator);
-            ErrorMessage = _metadata.ErrorMessage;
+        }
+
+        public override string DefaultErrorMessage
+        {
+            get { return _metadata.ErrorMessage; }
         }
 
         public override bool IsValid(object value, object container)
         {
             return _metadata.IsValid(value, GetDependentPropertyValue(container));
-        }    
+        }
+
+        public override string ClientTypeName
+        {
+            get { return "Is"; }
+        }
+
+        public override Dictionary<string, object> ClientValidationParameters
+        {
+            get
+            {
+                var result = base.ClientValidationParameters;
+                result.Add("Operator", Operator.ToString());
+
+                return result;
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Foolproof
     public class RequiredIfEmptyAttribute : ContingentAttribute
     {
         public RequiredIfEmptyAttribute(string dependentProperty)
-            : base(dependentProperty) { ErrorMessage = "{1} is required."; }
+            : base(dependentProperty) { }
 
         public override bool IsValid(object value, object container)
         {
@@ -18,6 +18,11 @@ namespace Foolproof
                 return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
 
             return true;
+        }
+
+        public override string DefaultErrorMessage
+        {
+            get { return "{1} is required."; }
         }
     }
 }

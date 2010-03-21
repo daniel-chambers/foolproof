@@ -18,11 +18,13 @@ namespace Foolproof
         public ContingentAttribute(string dependentProperty)
         {
             DependentProperty = dependentProperty;
-            ErrorMessage = "{0} is invalid due to {1}.";
         }
 
         public override string FormatErrorMessage(string name)
         {
+            if (ErrorMessage == null)
+                ErrorMessage = DefaultErrorMessage;
+
             return string.Format(ErrorMessage, name, DependentProperty);
         }
            
@@ -38,6 +40,7 @@ namespace Foolproof
             throw new NotImplementedException();
         }
 
+        public abstract string DefaultErrorMessage { get; }
         public abstract bool IsValid(object value, object container);
 
         public virtual string ClientTypeName
