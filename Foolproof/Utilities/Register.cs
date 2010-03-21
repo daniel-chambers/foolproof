@@ -27,8 +27,7 @@ namespace Foolproof
             Attribute(typeof(RequiredIfFalseAttribute));
             Attribute(typeof(RequiredIfEmptyAttribute));
             Attribute(typeof(RequiredIfNotEmptyAttribute));
-            Attribute(typeof(RequiredIfValueAttribute));
-            Attribute(typeof(RequiredIfNotValueAttribute));            
+            Attribute(typeof(RequiredIfNotAttribute));            
         }
     }
 }

@@ -16,6 +16,9 @@ namespace Foolproof
             ErrorMessage = "{1} is required.";
         }
 
+        public RequiredIfAttribute(string dependentProperty, object dependentValue)
+            : this(dependentProperty, Operator.EqualTo, dependentValue) { }
+
         public override bool IsValid(object value, object container)
         {
             var dependentPropertyValue = GetDependentPropertyValue(container);
