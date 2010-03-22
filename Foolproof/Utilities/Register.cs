@@ -20,7 +20,7 @@ namespace Foolproof
             Attribute(typeof(NotEqualToAttribute));
             Attribute(typeof(GreaterThanAttribute));
             Attribute(typeof(LessThanAttribute));
-            Attribute(typeof(GreaterThanOrEqaulToAttribute));
+            Attribute(typeof(GreaterThanOrEqualToAttribute));
             Attribute(typeof(LessThanOrEqualToAttribute));
             Attribute(typeof(RequiredIfAttribute));
             Attribute(typeof(RequiredIfTrueAttribute));

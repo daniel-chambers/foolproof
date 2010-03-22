@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Base Classes\ConditionalContingentValidationAttribute.cs" />
     <Compile Include="Base Classes\ContingentValidationAttribute.cs" />
-    <Compile Include="GreaterThanOrEqaulTo.cs" />
+    <Compile Include="GreaterThanOrEqualTo.cs" />
     <Compile Include="Is.cs" />
     <Compile Include="GreaterThan.cs" />
     <Compile Include="LessThan.cs" />

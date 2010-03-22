@@ -8,9 +8,11 @@ foolproof.is = function (value1, operator, value2) {
         value1 = Date.parse(value1);
         value2 = Date.parse(value2);
     }
-    else if (!!Boolean.parse(value1)) {
-        value1 = Boolean.parse(value1);
-        value2 = Boolean.parse(value2);
+    else if (value1 == true || value1 == false || value1 == "true" || value1 == "false") {
+        if (value1 == "false") value1 = false;
+        if (value2 == "false") value2 = false;
+        value1 = !!value1;
+        value2 = !!value2;
     }
     else if (isNumeric(value1)) {
         value1 = parseFloat(value1);
@@ -29,10 +31,15 @@ foolproof.is = function (value1, operator, value2) {
     return false;
 };
 
+foolproof.getId = function (element, dependentPropety) {
+    var pos = element.id.lastIndexOf("_") + 1;
+    return element.id.substr(0, pos) + dependentPropety;
+}
+
 Sys.Mvc.ValidatorRegistry.validators["Is"] = function (rule) {
-    var dependentProperty = rule.ValidationParameters["DependentProperty"];
     var operator = rule.ValidationParameters["Operator"];
     return function (value, context) {
+        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (foolproof.is(value, operator, dependentValue))
@@ -43,23 +50,25 @@ Sys.Mvc.ValidatorRegistry.validators["Is"] = function (rule) {
 };
 
 Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
-    var dependentProperty = rule.ValidationParameters["DependentProperty"];
     var dependentTestValue = rule.ValidationParameters["DependentValue"];
     var operator = rule.ValidationParameters["Operator"];
     return function (value, context) {
-        var dependentValue = document.getElementById(dependentProperty).value;
+        var dependentProperty = foolproof.getId(rule.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
 
-        if (foolproof.is(dependentTestValue, operator, dependentValue))
+        if (foolproof.is(dependentTestValue, operator, dependentValue)) {
             if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
                 return true;
+        }
+        else
+            return true;
 
         return rule.ErrorMessage;
     };
 };
 
 Sys.Mvc.ValidatorRegistry.validators["RequiredIfEmpty"] = function (rule) {
-    var dependentProperty = rule.ValidationParameters["DependentProperty"];
     return function (value, context) {
+        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (dependentValue == null || dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') == "") {
@@ -74,8 +83,8 @@ Sys.Mvc.ValidatorRegistry.validators["RequiredIfEmpty"] = function (rule) {
 };
 
 Sys.Mvc.ValidatorRegistry.validators["RequiredIfNotEmpty"] = function (rule) {
-    var dependentProperty = rule.ValidationParameters["DependentProperty"];
     return function (value, context) {
+        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (dependentValue != null && dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "") {
