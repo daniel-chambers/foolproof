@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Foolproof
 {
+    [AttributeUsage(AttributeTargets.Property)]
     public abstract class ContingentAttribute : ValidationAttribute
     {
         public string DependentProperty { get; private set; }

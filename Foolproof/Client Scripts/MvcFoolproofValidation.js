@@ -8,7 +8,7 @@ foolproof.is = function (value1, operator, value2) {
         value1 = Date.parse(value1);
         value2 = Date.parse(value2);
     }
-    else if (value1 == true || value1 == false || value1 == "true" || value1 == "false") {
+    else if (value1 === true || value1 === false || value1 === "true" || value1 === "false") {
         if (value1 == "false") value1 = false;
         if (value2 == "false") value2 = false;
         value1 = !!value1;
