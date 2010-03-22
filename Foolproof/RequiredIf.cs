@@ -32,5 +32,21 @@ namespace Foolproof
 
             return true;
         }
+
+        public override string ClientTypeName
+        {
+            get { return "RequiredIf"; }
+        }
+
+        public override Dictionary<string, object> ClientValidationParameters
+        {
+            get
+            {
+                var result = base.ClientValidationParameters;
+                result.Add("Operator", Operator.ToString());
+
+                return result;
+            }
+        }
     }
 }
