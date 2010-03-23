@@ -53,7 +53,8 @@ Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
     var dependentTestValue = rule.ValidationParameters["DependentValue"];
     var operator = rule.ValidationParameters["Operator"];
     return function (value, context) {
-        var dependentProperty = foolproof.getId(rule.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
+        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
+        var dependentValue = document.getElementById(dependentProperty).value;
 
         if (foolproof.is(dependentTestValue, operator, dependentValue)) {
             if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
