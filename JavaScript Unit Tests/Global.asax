@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="JavaScript_Unit_Tests.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Foolproof.UnitTests.JavaScript.MvcApplication" Language="C#" %>
