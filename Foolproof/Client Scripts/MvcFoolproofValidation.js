@@ -34,7 +34,12 @@ foolproof.is = function (value1, operator, value2) {
 foolproof.getId = function (element, dependentPropety) {
     var pos = element.id.lastIndexOf("_") + 1;
     return element.id.substr(0, pos) + dependentPropety;
-}
+};
+
+foolproof.getName = function (element, dependentPropety) {
+    var pos = element.name.lastIndexOf(".") + 1;
+    return element.name.substr(0, pos) + dependentPropety;
+};
 
 Sys.Mvc.ValidatorRegistry.validators["Is"] = function (rule) {
     var operator = rule.ValidationParameters["Operator"];
@@ -53,8 +58,22 @@ Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
     var dependentTestValue = rule.ValidationParameters["DependentValue"];
     var operator = rule.ValidationParameters["Operator"];
     return function (value, context) {
-        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
-        var dependentValue = document.getElementById(dependentProperty).value;
+        var dependentProperty = foolproof.getName(context.fieldContext.elements[0], rule.ValidationParameters["DependentProperty"]);
+        var dependentPropertyElement = document.getElementsByName(dependentProperty);
+        var dependentValue = null;
+
+        if (dependentPropertyElement.length > 1) {
+            for (var index = 0; index != dependentPropertyElement.length; index++)
+                if (dependentPropertyElement[index]["checked"]) {
+                    dependentValue = dependentPropertyElement[index].value;
+                    break;
+                }
+
+            if (dependentValue == null)
+                return true;
+        }
+        else
+            dependentValue = dependentPropertyElement[0].value;
 
         if (foolproof.is(dependentTestValue, operator, dependentValue)) {
             if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
