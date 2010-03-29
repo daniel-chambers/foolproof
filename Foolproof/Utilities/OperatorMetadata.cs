@@ -33,6 +33,8 @@ namespace Foolproof
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue == null)
                                 return true;
+                            else if (value == null && dependentValue != null)
+                                return false;
 
                             return value.Equals(dependentValue);
                         }
@@ -45,6 +47,8 @@ namespace Foolproof
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue != null)
                                 return true;
+                            else if (value == null && dependentValue == null)
+                                return false;
 
                             return !value.Equals(dependentValue);
                         }
