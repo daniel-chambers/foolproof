@@ -1,48 +1,56 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Foolproof.UnitTests.JavaScript.Models.Model>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Index</h2>
-    <div style="display: block;">
+    <script type="text/javascript">
+
+        Sys.Application.add_load(function () {
+            $("form").get(0)[Sys.Mvc.FormContext._formValidationTag].validate("submit");
+
+            module("Is");
+
+            test("EqualTo Strings", function () {
+                ok($("#IsTests_EqualToStringsInvalid_Value2").hasClass("input-validation-error"), "Valid Test");
+                ok(!$("#IsTests_EqualToStringsValid_Value2").hasClass("input-validation-error"), "Invalid Test");
+            });
+
+            test("NotEqualTo Strings", function () {
+                ok($("#IsTests_NotEqualToStringsInvalid_Value2").hasClass("input-validation-error"), "Valid Test");
+                ok(!$("#IsTests_NotEqualToStringsValid_Value2").hasClass("input-validation-error"), "Invalid Test");
+            });
+        });                    
+    </script>
+    <h1 id="qunit-header">
+        QUnit example</h1>
+    <h2 id="qunit-banner">
+    </h2>
+    <h2 id="qunit-userAgent">
+    </h2>
+    <ol id="qunit-tests">
+    </ol>
+    <div style="display: none;">
         <% Html.EnableClientValidation(); %>
         <% using (Html.BeginForm())
            { %>
         <div>
-            <%= Html.EditorFor(m => m.IsTests.EqualStringFail1)%>
-            <%= Html.EditorFor(m => m.IsTests.EqualStringFail2) %>
-            <%= Html.ValidationMessageFor(m => m.IsTests.EqualStringFail2) %>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsValid)%>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsValid)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.EqualToStringsValid)%>
         </div>
         <div>
-            <%= Html.EditorFor(m => m.IsTests.EqualStringPass1)%>
-            <%= Html.EditorFor(m => m.IsTests.EqualStringPass2) %>
-            <%= Html.ValidationMessageFor(m => m.IsTests.EqualStringPass2) %>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsInvalid)%>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsInvalid)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.EqualToStringsInvalid)%>
         </div>
         <div>
-            <%= Html.EditorFor(m => m.IsTests.NotEqualStringFail1)%>
-            <%= Html.EditorFor(m => m.IsTests.NotEqualStringFail2) %>
-            <%= Html.ValidationMessageFor(m => m.IsTests.NotEqualStringFail2)%>
+            <%= Html.EditorFor(m => m.IsTests.NotEqualToStringsValid)%>
+            <%= Html.EditorFor(m => m.IsTests.NotEqualToStringsValid)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.NotEqualToStringsValid)%>
         </div>
         <div>
-            <%= Html.EditorFor(m => m.IsTests.NotEqualStringPass1)%>
-            <%= Html.EditorFor(m => m.IsTests.NotEqualStringPass2) %>
-            <%= Html.ValidationMessageFor(m => m.IsTests.NotEqualStringPass2)%>
+            <%= Html.EditorFor(m => m.IsTests.NotEqualToStringsInvalid)%>
+            <%= Html.EditorFor(m => m.IsTests.NotEqualToStringsInvalid)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.NotEqualToStringsInvalid)%>
         </div>
         <% } %>
     </div>
-    <input id="testButton" type="button" value="Go" />
-    <script type="text/javascript">
-        function runTests() {
-            fireunit.ok($("#IsTests_EqualStringFail2").hasClass("input-validation-error") == true, "EqualTo-Fail");
-            fireunit.ok($("#IsTests_EqualStringPass2").hasClass("input-validation-error") == false, "EqualTo-Pass");
-            fireunit.ok($("#IsTests_NotEqualStringFail2").hasClass("input-validation-error") == true, "NotEqualTo-Fail");
-            fireunit.ok($("#IsTests_NotEqualStringPass2").hasClass("input-validation-error") == false, "NotEqualTo-Pass");
-        }
-
-        $(document).ready(function () {
-            setTimeout(function () {
-                $("form").get(0)[Sys.Mvc.FormContext._formValidationTag].validate("submit");
-                runTests();
-            }, 100);
-        });                
-    </script>
 </asp:Content>

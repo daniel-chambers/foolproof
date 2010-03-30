@@ -90,7 +90,9 @@
       <Link>Scripts\MvcFoolproofValidation.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\qunit.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\qunit.js" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -7,35 +7,34 @@ namespace Foolproof.UnitTests.JavaScript.Models
 {
     public class IsTests
     {
-        public IsTests()
+        public class EqualToStrings
         {
-            EqualStringFail2 = "hello";
+            public string Value1 { get; set; }
 
-            EqualStringPass1 = "hello";
-            EqualStringPass2 = "hello";
-
-            NotEqualStringFail1 = "hello";
-            NotEqualStringFail2 = "hello";
-
-            NotEqualStringPass1 = "";
-            NotEqualStringPass2 = "hello";
+            [EqualTo("Value1")]
+            public string Value2 { get; set; }
         }
 
-        public string EqualStringFail1 { get; set; }
-        [EqualTo("EqualStringFail1")]
-        public string EqualStringFail2 { get; set; }
+        public class NotEqualToStrings
+        {
+            public string Value1 { get; set; }
 
-        public string EqualStringPass1 { get; set; }
-        [EqualTo("EqualStringPass1")]
-        public string EqualStringPass2 { get; set; }
+            [NotEqualTo("Value1")]
+            public string Value2 { get; set; }
+        }
 
-        public string NotEqualStringFail1 { get; set; }
-        [NotEqualTo("NotEqualStringFail1")]
-        public string NotEqualStringFail2 { get; set; }
+        public EqualToStrings EqualToStringsValid { get; set; }
+        public EqualToStrings EqualToStringsInvalid { get; set; }
+        public NotEqualToStrings NotEqualToStringsValid { get; set; }
+        public NotEqualToStrings NotEqualToStringsInvalid { get; set; }
 
-        public string NotEqualStringPass1 { get; set; }
-        [NotEqualTo("NotEqualStringPass1")]
-        public string NotEqualStringPass2 { get; set; }
+        public IsTests()
+        {
+            EqualToStringsValid = new EqualToStrings() { Value1 = "hello", Value2 = "hello" };
+            EqualToStringsInvalid = new EqualToStrings() { Value1 = "hello", Value2 = "goodbye" };
+            NotEqualToStringsValid = new NotEqualToStrings() { Value1 = "hello", Value2 = "goodbye" };
+            NotEqualToStringsInvalid = new NotEqualToStrings() { Value1 = "hello", Value2 = "hello" };
+        }
     }
 
     public partial class Model
