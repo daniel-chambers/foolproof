@@ -28,8 +28,6 @@ namespace Foolproof.UnitTests.JavaScript
         {
             AreaRegistration.RegisterAllAreas();
 
-            ModelBinders.Binders.DefaultBinder = new FoolproofModelBinder();
-
             RegisterRoutes(RouteTable.Routes);
         }
     }

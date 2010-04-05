@@ -59,7 +59,6 @@
     <Compile Include="NotEqualTo.cs" />
     <Compile Include="Operator.cs" />
     <Compile Include="RequiredIfNot.cs" />
-    <Compile Include="Utilities\FoolproofModelBinder.cs" />
     <Compile Include="RequiredIfEmpty.cs" />
     <Compile Include="RequiredIfNotEmpty.cs" />
     <Compile Include="Utilities\ContingentValidator.cs" />
