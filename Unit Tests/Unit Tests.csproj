@@ -56,10 +56,15 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequiredIfNotEmptyAttributeTest.cs" />
+    <Compile Include="RequiredIfNotAttributeTest.cs" />
+    <Compile Include="RequiredIfFalseAttributeTest.cs" />
+    <Compile Include="LessThanOrEqualToAttributeTest.cs" />
+    <Compile Include="GreaterThanOrEqualToAttributeTest.cs" />
     <Compile Include="GreaterThanAttributeTest.cs" />
-    <Compile Include="IsAttributeTest.cs" />
     <Compile Include="LessThanAttributeTest.cs" />
     <Compile Include="EqualToAttributeTest.cs" />
+    <Compile Include="NotEqualToAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequiredIfAttributeTest.cs" />
     <Compile Include="RequiredIfEmptyAttributeTest.cs" />

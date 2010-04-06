@@ -7,25 +7,47 @@ namespace Foolproof.UnitTests
     [TestClass()]
     public class LessThanAttributeTest
     {
-        private class Model : ModelBase
+        private class DateModel : ModelBase<LessThanAttribute>
         {
-            [LessThan("End")]
-            public DateTime Start { get; set; }                        
-            public DateTime End { get; set; }
+            public DateTime? Value1 { get; set; }
+
+            [LessThan("Value1")]
+            public DateTime? Value2 { get; set; }
         }
 
         [TestMethod()]
-        public void IsValid()
+        public void DateIsValid()
         {
-            var model = new Model() { Start = DateTime.Now, End = DateTime.Now.AddDays(1) };
-            Assert.IsTrue(model.IsValid<LessThanAttribute>("Start"));
+            var model = new DateModel() { Value1 = DateTime.Now, Value2 = DateTime.Now.AddDays(-1) };
+            Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsNotValid()
+        public void DateIsNotValid()
         {
-            var model = new Model() { Start = DateTime.Now, End = DateTime.Now.AddDays(-1) };
-            Assert.IsFalse(model.IsValid<LessThanAttribute>("Start"));
+            var model = new DateModel() { Value1 = DateTime.Now, Value2 = DateTime.Now.AddDays(1) };
+            Assert.IsFalse(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void DateWithNullsIsNotValid()
+        {
+            var model = new DateModel() { };
+            Assert.IsFalse(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void DateWithValue1NullIsNotValid()
+        {
+            var model = new DateModel() { Value2 = DateTime.Now };
+            Assert.IsFalse(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void DateWithValue2NullIsNotValid()
+        {
+            var model = new DateModel() { Value1 = DateTime.Now };
+            Assert.IsFalse(model.IsValid("Value2"));
         }  
     }
 }

@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using Foolproof;
+using System.Linq.Expressions;
 
 namespace Foolproof.UnitTests
 {
-    abstract class ModelBase
+    abstract class ModelBase<T> where T: ContingentAttribute
     {
-        public T GetAttribute<T>(string property) where T : ContingentAttribute
+        public T GetAttribute(string property) 
         {
             return (T)this.GetType().GetProperty(property).GetCustomAttributes(typeof(T), false)[0];
         }
 
-        public bool IsValid<T>(string property) where T : ContingentAttribute
+        public bool IsValid(string property) 
         {
-            var attribute = this.GetAttribute<T>(property);
+            var attribute = this.GetAttribute(property);
             return attribute.IsValid(this.GetType().GetProperty(property).GetValue(this, null), this);
         }
     }

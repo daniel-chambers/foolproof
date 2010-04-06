@@ -58,28 +58,54 @@ namespace Foolproof
                     Operator.GreaterThan, new OperatorMetadata()
                     {
                         ErrorMessage = "{0} must be greater than {1}.",
-                        IsValid = (value, dependentValue) => { return Comparer<object>.Default.Compare(value, dependentValue) == 1; }
+                        IsValid = (value, dependentValue) => {
+                            if (value == null || dependentValue == null)
+                                return false;
+
+                            return Comparer<object>.Default.Compare(value, dependentValue) == 1;
+                        }
                     }
                 },
                 {
                     Operator.LessThan, new OperatorMetadata()
                     {
                         ErrorMessage = "{0} must be less than {1}.",
-                        IsValid = (value, dependentValue) => { return Comparer<object>.Default.Compare(value, dependentValue) == -1; }
+                        IsValid = (value, dependentValue) => {
+                            if (value == null || dependentValue == null)
+                                return false;
+
+                            return Comparer<object>.Default.Compare(value, dependentValue) == -1;
+                        }
                     }
                 },
                 {
                     Operator.GreaterThanOrEqualTo, new OperatorMetadata()
                     {
                         ErrorMessage = "{0} must be greater than or equal to {1}.",
-                        IsValid = (value, dependentValue) => { return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == 1; }
+                        IsValid = (value, dependentValue) => {
+                            if (value == null && dependentValue == null)
+                                return true;
+
+                            if (value == null || dependentValue == null)
+                                return false;
+
+                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == 1;
+                        }
                     }
                 },
                 {
                     Operator.LessThanOrEqualTo, new OperatorMetadata()
                     {
                         ErrorMessage = "{0} must be less than or equal to {1}.",
-                        IsValid = (value, dependentValue) => { return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == -1; }
+                        IsValid = (value, dependentValue) => {
+                            if (value == null && dependentValue == null)
+                                return true;
+
+                            if (value == null || dependentValue == null)
+                                return false;
+
+                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == -1;
+                        }
                     }
                 }
             };

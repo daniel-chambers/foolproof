@@ -1,53 +1,52 @@
 ﻿using Foolproof;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Foolproof.UnitTests
 {
     [TestClass()]
-    public class EqualToAttributeTest
+    public class RequiredIfNotEmptyAttributeTest
     {
-        private class Model : ModelBase<EqualToAttribute>
+        private class Model : ModelBase<RequiredIfNotEmptyAttribute>
         {
             public string Value1 { get; set; }
 
-            [EqualTo("Value1")]
+            [RequiredIfNotEmpty("Value1")]
             public string Value2 { get; set; }
         }
 
         [TestMethod()]
-        public void IsValid()
+        public void IsValidTest()
         {
             var model = new Model() { Value1 = "hello", Value2 = "hello" };
             Assert.IsTrue(model.IsValid("Value2"));
         }
-
+        
         [TestMethod()]
-        public void IsNotValid()
+        public void IsNotRequiredTest()
         {
-            var model = new Model() { Value1 = "hello", Value2 = "goodbye" };
-            Assert.IsFalse(model.IsValid("Value2"));
-        }
-
-        [TestMethod()]
-        public void IsValidWithNulls()
-        {
-            var model = new Model() { };
+            var model = new Model() { Value1 = "", Value2 = "" };
             Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsNotValidWithValue1Null()
+        public void IsNotRequiredWithValue1NullTest()
         {
-            var model = new Model() { Value2 = "hello" };
+            var model = new Model() { Value1 = null, Value2 = null };
+            Assert.IsTrue(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void IsNotValidTest()
+        {
+            var model = new Model() { Value1 = "hello", Value2 = "" };
             Assert.IsFalse(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsNotValidWithValue2Null()
+        public void IsNotValidWithvalue2NullTest()
         {
-            var model = new Model() { Value1 = "hello" };
+            var model = new Model() { Value1 = "hello", Value2 = null };
             Assert.IsFalse(model.IsValid("Value2"));
         }    
     }

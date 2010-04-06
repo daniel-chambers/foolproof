@@ -6,41 +6,41 @@ using System.ComponentModel.DataAnnotations;
 namespace Foolproof.UnitTests
 {
     [TestClass()]
-    public class RequiredIfTrueAttributeTest
+    public class RequiredIfFalseAttributeTest
     {
-        private class Model : ModelBase<RequiredIfTrueAttribute>
+        private class Model : ModelBase<RequiredIfFalseAttribute>
         {
             public bool? Value1 { get; set; }
 
-            [RequiredIfTrue("Value1")]
+            [RequiredIfFalse("Value1")]
             public string Value2 { get; set; }
         }
 
         [TestMethod()]
         public void IsValidTest()
         {
-            var model = new Model() { Value1 = true, Value2 = "hello" };
+            var model = new Model() { Value1 = false, Value2 = "hello" };
             Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
         public void IsNotValidTest()
         {
-            var model = new Model() { Value1 = true, Value2 = "" };
+            var model = new Model() { Value1 = false, Value2 = "" };
             Assert.IsFalse(model.IsValid("Value2"));
         }
 
         [TestMethod()]
         public void IsNotValidWithValue2NullTest()
         {
-            var model = new Model() { Value1 = true, Value2 = null };
+            var model = new Model() { Value1 = false, Value2 = null };
             Assert.IsFalse(model.IsValid("Value2"));
         }
 
         [TestMethod()]
         public void IsNotRequiredTest()
         {
-            var model = new Model() { Value1 = false, Value2 = "" };
+            var model = new Model() { Value1 = true, Value2 = "" };
             Assert.IsTrue(model.IsValid("Value2"));
         }
 

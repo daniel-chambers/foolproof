@@ -7,7 +7,7 @@ namespace Foolproof.UnitTests
     [TestClass()]
     public class RequiredIfEmptyAttributeTest
     {
-        private class Model : ModelBase
+        private class Model : ModelBase<RequiredIfEmptyAttribute>
         {
             public string Value1 { get; set; }
 
@@ -16,31 +16,45 @@ namespace Foolproof.UnitTests
         }
 
         [TestMethod()]
-        public void IsValid()
+        public void IsValidTest()
         {
             var model = new Model() { Value1 = "", Value2 = "hello" };
-            Assert.IsTrue(model.IsValid<RequiredIfEmptyAttribute>("Value2"));
+            Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsValidWithNull()
+        public void IsValidWithValue1NullTest()
         {
             var model = new Model() { Value1 = null, Value2 = "hello" };
-            Assert.IsTrue(model.IsValid<RequiredIfEmptyAttribute>("Value2"));
+            Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsNotRequired()
+        public void IsNotRequiredTest()
         {
             var model = new Model() { Value1 = "hello", Value2 = "" };
-            Assert.IsTrue(model.IsValid<RequiredIfEmptyAttribute>("Value2"));
+            Assert.IsTrue(model.IsValid("Value2"));
         }
 
         [TestMethod()]
-        public void IsNotValid()
+        public void IsNotRequiredWithValue2NullTest()
+        {
+            var model = new Model() { Value1 = "hello", Value2 = null };
+            Assert.IsTrue(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void IsNotValidTest()
         {
             var model = new Model() { Value1 = "", Value2 = "" };
-            Assert.IsFalse(model.IsValid<RequiredIfEmptyAttribute>("Value2"));
+            Assert.IsFalse(model.IsValid("Value2"));
         }
+
+        [TestMethod()]
+        public void IsNotValidWithvalue1NullTest()
+        {
+            var model = new Model() { Value1 = null, Value2 = "" };
+            Assert.IsFalse(model.IsValid("Value2"));
+        }    
     }
 }
