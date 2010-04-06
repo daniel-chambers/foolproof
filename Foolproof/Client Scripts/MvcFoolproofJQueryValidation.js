@@ -81,7 +81,7 @@ jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
     else
         dependentValue = dependentPropertyElement[0].value;
 
-    if (foolproof.is(dependentTestValue, operator, dependentValue)) {
+    if (foolproof.is(dependentValue, operator, dependentTestValue)) {
         if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
             return true;
     }
