@@ -51,11 +51,6 @@ namespace Foolproof.UnitTests.JavaScript.Models
 
     public partial class Model
     {
-        public Model()
-        {
-            IsTests = new IsTests();
-        }
-
-        public IsTests IsTests { get; set; }
+        public IsTests IsTests = new IsTests();
     }
 }
