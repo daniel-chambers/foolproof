@@ -48,8 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base Classes\ConditionalContingentValidationAttribute.cs" />
     <Compile Include="Base Classes\ContingentValidationAttribute.cs" />
+    <Compile Include="Base Classes\ModelAwareValidationAttribute.cs" />
     <Compile Include="GreaterThanOrEqualTo.cs" />
     <Compile Include="Is.cs" />
     <Compile Include="GreaterThan.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="RequiredIfNot.cs" />
     <Compile Include="RequiredIfEmpty.cs" />
     <Compile Include="RequiredIfNotEmpty.cs" />
-    <Compile Include="Utilities\ContingentValidator.cs" />
+    <Compile Include="Utilities\FoolproofValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\OperatorMetadata.cs" />
     <Compile Include="Utilities\Register.cs" />

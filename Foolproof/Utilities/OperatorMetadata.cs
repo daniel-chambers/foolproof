@@ -29,7 +29,7 @@ namespace Foolproof
                 {
                     Operator.EqualTo, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be equal to {1}.",
+                        ErrorMessage = "equal to",
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue == null)
                                 return true;
@@ -43,7 +43,7 @@ namespace Foolproof
                 {
                     Operator.NotEqualTo, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be not equal to {1}.",
+                        ErrorMessage = "not equal to",
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue != null)
                                 return true;
@@ -57,7 +57,7 @@ namespace Foolproof
                 {
                     Operator.GreaterThan, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be greater than {1}.",
+                        ErrorMessage = "greater than",
                         IsValid = (value, dependentValue) => {
                             if (value == null || dependentValue == null)
                                 return false;
@@ -69,7 +69,7 @@ namespace Foolproof
                 {
                     Operator.LessThan, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be less than {1}.",
+                        ErrorMessage = "less than",
                         IsValid = (value, dependentValue) => {
                             if (value == null || dependentValue == null)
                                 return false;
@@ -81,7 +81,7 @@ namespace Foolproof
                 {
                     Operator.GreaterThanOrEqualTo, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be greater than or equal to {1}.",
+                        ErrorMessage = "greater than or equal to",
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue == null)
                                 return true;
@@ -96,7 +96,7 @@ namespace Foolproof
                 {
                     Operator.LessThanOrEqualTo, new OperatorMetadata()
                     {
-                        ErrorMessage = "{0} must be less than or equal to {1}.",
+                        ErrorMessage = "less than or equal to",
                         IsValid = (value, dependentValue) => {
                             if (value == null && dependentValue == null)
                                 return true;

@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace Foolproof
 {
-    public class FoolproofValidator : DataAnnotationsModelValidator<ContingentAttribute>
+    public class FoolproofValidator : DataAnnotationsModelValidator<ModelAwareValidationAttribute>
     {
-        public FoolproofValidator(ModelMetadata metadata, ControllerContext context, ContingentAttribute attribute)
+        public FoolproofValidator(ModelMetadata metadata, ControllerContext context, ModelAwareValidationAttribute attribute)
             : base(metadata, context, attribute) { }
 
         public override IEnumerable<ModelValidationResult> Validate(object container)

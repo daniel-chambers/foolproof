@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace Foolproof.UnitTests
 {
-    abstract class ModelBase<T> where T: ContingentAttribute
+    abstract class ModelBase<T> where T: ContingentValidationAttribute
     {
         public T GetAttribute(string property) 
         {

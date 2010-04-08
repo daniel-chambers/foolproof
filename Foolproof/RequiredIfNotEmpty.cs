@@ -5,16 +5,14 @@ using System.Text;
 
 namespace Foolproof
 {
-    public class RequiredIfNotEmptyAttribute : ContingentAttribute
+    public class RequiredIfNotEmptyAttribute : ContingentValidationAttribute
     {
         public RequiredIfNotEmptyAttribute(string dependentProperty)
             : base(dependentProperty) { }
 
-        public override bool IsValid(object value, object container)
+        public override bool IsValid(object value, object dependentValue, object container)
         {
-            var dependentPropertyValue = GetDependentPropertyValue(container);
-
-            if (!string.IsNullOrEmpty((dependentPropertyValue ?? string.Empty).ToString().Trim()))
+            if (!string.IsNullOrEmpty((dependentValue ?? string.Empty).ToString().Trim()))
                 return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
 
             return true;
@@ -22,7 +20,7 @@ namespace Foolproof
 
         public override string DefaultErrorMessage
         {
-            get { return "{1} is required."; }
+            get { return "{0} is required due to {1} being empty."; }
         }
     }
 }

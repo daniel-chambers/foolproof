@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Foolproof
 {
-    public class IsAttribute : ContingentAttribute
+    public class IsAttribute : ContingentValidationAttribute
     {
         public Operator Operator { get; private set; }
         private OperatorMetadata _metadata;
@@ -17,30 +17,33 @@ namespace Foolproof
             _metadata = OperatorMetadata.Get(Operator);
         }
 
-        public override string DefaultErrorMessage
-        {
-            get { return _metadata.ErrorMessage; }
-        }
-
-        public override bool IsValid(object value, object container)
-        {
-            return _metadata.IsValid(value, GetDependentPropertyValue(container));
-        }
-
         public override string ClientTypeName
         {
             get { return "Is"; }
         }
 
-        public override Dictionary<string, object> ClientValidationParameters
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientValidationParameters()
         {
-            get
-            {
-                var result = base.ClientValidationParameters;
-                result.Add("Operator", Operator.ToString());
+            return base.GetClientValidationParameters()
+                .Union(new [] { new KeyValuePair<string, object>("Operator", Operator.ToString()) });
+        }
 
-                return result;
-            }
+        public override bool IsValid(object value, object dependentValue, object container)
+        {
+            return _metadata.IsValid(value, dependentValue);
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            if (string.IsNullOrEmpty(ErrorMessage))
+                ErrorMessage = DefaultErrorMessage;
+
+            return string.Format(ErrorMessage, name, DependentProperty);
+        }
+
+        public override string DefaultErrorMessage
+        {
+            get { return "{0} must be " + _metadata.ErrorMessage + " {1}."; }
         }
     }
 }

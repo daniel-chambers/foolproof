@@ -7,56 +7,51 @@ using System.ComponentModel.DataAnnotations;
 namespace Foolproof
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public abstract class ContingentAttribute : ValidationAttribute
+    public abstract class ContingentValidationAttribute : ModelAwareValidationAttribute
     {
         public string DependentProperty { get; private set; }
 
-        static ContingentAttribute()
+        static ContingentValidationAttribute()
         {
             Register.All();
         }
 
-        public ContingentAttribute(string dependentProperty)
+        public ContingentValidationAttribute(string dependentProperty)
         {
             DependentProperty = dependentProperty;
         }
-
+        
         public override string FormatErrorMessage(string name)
         {
-            if (ErrorMessage == null)
+            if (string.IsNullOrEmpty(ErrorMessage))
                 ErrorMessage = DefaultErrorMessage;
 
             return string.Format(ErrorMessage, name, DependentProperty);
         }
-           
-        protected object GetDependentPropertyValue(object container)
+
+        public override string DefaultErrorMessage
+        {
+            get { return "{0} is invalide due to {1}."; }
+        }
+
+        private object GetDependentPropertyValue(object container)
         {
             return container.GetType()
                 .GetProperty(DependentProperty)
                 .GetValue(container, null);
         }
-
-        public override bool IsValid(object value)
+        
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientValidationParameters()
         {
-            throw new NotImplementedException();
+            return base.GetClientValidationParameters()
+                .Union(new[] { new KeyValuePair<string, object>("DependentProperty", DependentProperty) });
         }
 
-        public abstract string DefaultErrorMessage { get; }
-        public abstract bool IsValid(object value, object container);
-
-        public virtual string ClientTypeName
+        public override bool IsValid(object value, object container)
         {
-            get { return this.GetType().Name.Replace("Attribute", ""); }
+            return IsValid(value, GetDependentPropertyValue(container), container);
         }
 
-        public virtual Dictionary<string, object> ClientValidationParameters
-        {
-            get
-            {
-                return new Dictionary<string, object>() {
-                    { "DependentProperty", DependentProperty }
-                };
-            }
-        }
+        public abstract bool IsValid(object value, object dependentValue, object container);
     }
 }

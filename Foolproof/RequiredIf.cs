@@ -5,32 +5,29 @@ using System.Text;
 
 namespace Foolproof
 {
-    public class RequiredIfAttribute : ConditionContingentAttribute
+    public class RequiredIfAttribute : ContingentValidationAttribute
     {
         public Operator Operator { get; private set; }
-
+        public object DependentValue { get; private set; }
+        private OperatorMetadata _metadata;
+        
         public RequiredIfAttribute(string dependentProperty, Operator @operator, object dependentValue)
-            : base(dependentProperty, dependentValue)
+            : base(dependentProperty)
         {
             Operator = @operator;
+            DependentValue = dependentValue;
+            _metadata = OperatorMetadata.Get(Operator);
         }
 
         public RequiredIfAttribute(string dependentProperty, object dependentValue)
             : this(dependentProperty, Operator.EqualTo, dependentValue) { }
 
-        public override string DefaultErrorMessage
+        public override string FormatErrorMessage(string name)
         {
-            get { return "{1} is required."; }
-        }
+            if (string.IsNullOrEmpty(ErrorMessage))
+                ErrorMessage = DefaultErrorMessage;
 
-        public override bool IsValid(object value, object container)
-        {
-            var dependentPropertyValue = GetDependentPropertyValue(container);
-
-            if (OperatorMetadata.Get(Operator).IsValid(dependentPropertyValue, DependentValue))
-                return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
-
-            return true;
+            return string.Format(ErrorMessage, name, DependentProperty, DependentValue);
         }
 
         public override string ClientTypeName
@@ -38,15 +35,26 @@ namespace Foolproof
             get { return "RequiredIf"; }
         }
 
-        public override Dictionary<string, object> ClientValidationParameters
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientValidationParameters()
         {
-            get
-            {
-                var result = base.ClientValidationParameters;
-                result.Add("Operator", Operator.ToString());
+            return base.GetClientValidationParameters()
+                .Union(new[] {
+                    new KeyValuePair<string, object>("Operator", Operator.ToString()),
+                    new KeyValuePair<string, object>("DependentValue", DependentValue)
+                });
+        }
 
-                return result;
-            }
+        public override bool IsValid(object value, object dependentValue, object container)
+        {
+            if (_metadata.IsValid(dependentValue, DependentValue))
+                return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
+
+            return true;
+        }
+
+        public override string DefaultErrorMessage
+        {
+            get { return "{0} is required due to {1} being " + _metadata.ErrorMessage + " {2}"; }
         }
     }
 }
