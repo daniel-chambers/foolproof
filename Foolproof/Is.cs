@@ -33,14 +33,6 @@ namespace Foolproof
             return _metadata.IsValid(value, dependentValue);
         }
 
-        public override string FormatErrorMessage(string name)
-        {
-            if (string.IsNullOrEmpty(ErrorMessage))
-                ErrorMessage = DefaultErrorMessage;
-
-            return string.Format(ErrorMessage, name, DependentProperty);
-        }
-
         public override string DefaultErrorMessage
         {
             get { return "{0} must be " + _metadata.ErrorMessage + " {1}."; }

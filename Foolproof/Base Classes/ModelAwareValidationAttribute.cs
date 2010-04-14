@@ -23,7 +23,7 @@ namespace Foolproof
 
         public override string FormatErrorMessage(string name)
         {
-            if (string.IsNullOrEmpty(ErrorMessage))
+            if (string.IsNullOrEmpty(ErrorMessageResourceName) && string.IsNullOrEmpty(ErrorMessage))
                 ErrorMessage = DefaultErrorMessage;
             
             return base.FormatErrorMessage(name);

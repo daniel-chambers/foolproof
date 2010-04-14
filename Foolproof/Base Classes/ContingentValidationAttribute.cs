@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace Foolproof
 {
@@ -23,10 +24,10 @@ namespace Foolproof
         
         public override string FormatErrorMessage(string name)
         {
-            if (string.IsNullOrEmpty(ErrorMessage))
+            if (string.IsNullOrEmpty(ErrorMessageResourceName) && string.IsNullOrEmpty(ErrorMessage))
                 ErrorMessage = DefaultErrorMessage;
-
-            return string.Format(ErrorMessage, name, DependentProperty);
+            
+            return string.Format(ErrorMessageString, name, DependentProperty);
         }
 
         public override string DefaultErrorMessage

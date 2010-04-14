@@ -24,10 +24,10 @@ namespace Foolproof
 
         public override string FormatErrorMessage(string name)
         {
-            if (string.IsNullOrEmpty(ErrorMessage))
+            if (string.IsNullOrEmpty(ErrorMessageResourceName) && string.IsNullOrEmpty(ErrorMessage))
                 ErrorMessage = DefaultErrorMessage;
 
-            return string.Format(ErrorMessage, name, DependentProperty, DependentValue);
+            return string.Format(ErrorMessageString, name, DependentProperty, DependentValue);
         }
 
         public override string ClientTypeName
