@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Foolproof
 {
@@ -9,14 +10,14 @@ namespace Foolproof
     {
         public Operator Operator { get; private set; }
         public object DependentValue { get; private set; }
-        private OperatorMetadata _metadata;
+        protected OperatorMetadata Metadata { get; private set; }
         
         public RequiredIfAttribute(string dependentProperty, Operator @operator, object dependentValue)
             : base(dependentProperty)
         {
             Operator = @operator;
             DependentValue = dependentValue;
-            _metadata = OperatorMetadata.Get(Operator);
+            Metadata = OperatorMetadata.Get(Operator);
         }
 
         public RequiredIfAttribute(string dependentProperty, object dependentValue)
@@ -46,7 +47,7 @@ namespace Foolproof
 
         public override bool IsValid(object value, object dependentValue, object container)
         {
-            if (_metadata.IsValid(dependentValue, DependentValue))
+            if (Metadata.IsValid(dependentValue, DependentValue))
                 return value != null && !string.IsNullOrEmpty(value.ToString().Trim());
 
             return true;
@@ -54,7 +55,7 @@ namespace Foolproof
 
         public override string DefaultErrorMessage
         {
-            get { return "{0} is required due to {1} being " + _metadata.ErrorMessage + " {2}"; }
+            get { return "{0} is required due to {1} being " + Metadata.ErrorMessage + " {2}"; }
         }
     }
 }

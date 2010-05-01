@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Foolproof
 {
-    internal class OperatorMetadata
+    public class OperatorMetadata
     {
         public string ErrorMessage { get; set; }
         public Func<object, object, bool> IsValid { get; set; }
@@ -105,6 +106,24 @@ namespace Foolproof
                                 return false;
 
                             return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == -1;
+                        }
+                    }
+                },
+                {
+                    Operator.RegExMatch, new OperatorMetadata()
+                    {
+                        ErrorMessage = "a match to",
+                        IsValid = (value, dependentValue) => {
+                            return Regex.Match((value ?? "").ToString(), dependentValue.ToString()).Success;
+                        }
+                    }
+                },
+                {
+                    Operator.NotRegExMatch, new OperatorMetadata()
+                    {
+                        ErrorMessage = "not a match to",
+                        IsValid = (value, dependentValue) => {
+                            return !Regex.Match((value ?? "").ToString(), dependentValue.ToString()).Success;
                         }
                     }
                 }

@@ -28,6 +28,8 @@ foolproof.is = function (value1, operator, value2) {
         case "LessThan": if (value1 < value2) return true; break;
         case "GreaterThanOrEqualTo": if (value1 >= value2) return true; break;
         case "LessThanOrEqualTo": if (value1 <= value2) return true; break;
+        case "RegExMatch": return (new RegExp(value2)).test(value1); break;
+        case "NotRegExMatch": return !(new RegExp(value2)).test(value1); break;
     }
 
     return false;
@@ -57,6 +59,7 @@ Sys.Mvc.ValidatorRegistry.validators["Is"] = function (rule) {
 };
 
 Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
+    var pattern = rule.ValidationParameters["Pattern"];
     var dependentTestValue = rule.ValidationParameters["DependentValue"];
     var operator = rule.ValidationParameters["Operator"];
     return function (value, context) {
@@ -78,8 +81,12 @@ Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
             dependentValue = dependentPropertyElement[0].value;
 
         if (foolproof.is(dependentValue, operator, dependentTestValue)) {
-            if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
-                return true;
+            if (pattern == null) {
+                if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
+                    return true;
+            }
+            else
+                return (new RegExp(pattern)).test(value);
         }
         else
             return true;

@@ -12,6 +12,8 @@ namespace Foolproof
         GreaterThan,
         LessThan,
         GreaterThanOrEqualTo,
-        LessThanOrEqualTo
+        LessThanOrEqualTo,
+        RegExMatch,
+        NotRegExMatch
     }
 }

@@ -28,6 +28,8 @@ foolproof.is = function (value1, operator, value2) {
         case "LessThan": if (value1 < value2) return true; break;
         case "GreaterThanOrEqualTo": if (value1 >= value2) return true; break;
         case "LessThanOrEqualTo": if (value1 <= value2) return true; break;
+        case "RegExMatch": return (new RegExp(value2)).test(value1); break;
+        case "NotRegExMatch": return !(new RegExp(value2)).test(value1); break;
     }
 
     return false;
@@ -65,6 +67,7 @@ jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
     var dependentProperty = foolproof.getName(element, params["DependentProperty"]);
     var dependentTestValue = params["DependentValue"];
     var operator = params["Operator"];
+    var pattern = params["Pattern"];
     var dependentPropertyElement = document.getElementsByName(dependentProperty);
     var dependentValue = null;
 
@@ -82,8 +85,12 @@ jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
         dependentValue = dependentPropertyElement[0].value;
 
     if (foolproof.is(dependentValue, operator, dependentTestValue)) {
-        if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
-            return true;
+        if (pattern == null) {
+            if (value != null && value.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "")
+                return true;
+        }
+        else
+            return (new RegExp(pattern)).test(value);
     }
     else
         return true;
