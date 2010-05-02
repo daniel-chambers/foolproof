@@ -1,6 +1,4 @@
-﻿//version: 0.1.3747.36017
-
-var foolproof = function () { };
+﻿var foolproof = function () { };
 foolproof.is = function (value1, operator, value2) {
     var isNumeric = function (input) {
         return (input - 0) == input && input.length > 0;
