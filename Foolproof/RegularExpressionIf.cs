@@ -34,9 +34,17 @@ namespace Foolproof
                 });
         }
 
+        public override string FormatErrorMessage(string name)
+        {
+            if (string.IsNullOrEmpty(ErrorMessageResourceName) && string.IsNullOrEmpty(ErrorMessage))
+                ErrorMessage = DefaultErrorMessage;
+
+            return string.Format(ErrorMessageString, name, DependentProperty, DependentValue, Pattern);
+        }
+
         public override string DefaultErrorMessage
         {
-            get { return "{0} must be in the format of " + Pattern + " due to {1} being " + Metadata.ErrorMessage + " {2}"; }
+            get { return "{0} must be in the format of {3} due to {1} being " + Metadata.ErrorMessage + " {2}"; }
         }
     }
 }
