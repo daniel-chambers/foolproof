@@ -77,7 +77,7 @@ jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
             }
 
         if (dependentValue == null)
-            return true;
+            dependentValue = false
     }
     else
         dependentValue = dependentPropertyElement[0].value;

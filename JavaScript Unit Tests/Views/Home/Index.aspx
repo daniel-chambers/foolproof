@@ -21,6 +21,20 @@
             test("GreaterThan Dates", function () {
                 ok(!$("#IsTests_GreaterThanDates_Value2").hasClass("input-validation-error"), "Valid Test");
             });
+
+            module("Required If");
+
+            test("EqualTo True", function () {
+                ok(!$("#RequiredTests_EqualToTrue_IsTrueHasValue_Value2").hasClass("input-validation-error"), "True, Valid Test");
+                ok($("#RequiredTests_EqualToTrue_IsTrueNoValue_Value2").hasClass("input-validation-error"), "True, Invalid Test");
+                ok(!$("#RequiredTests_EqualToTrue_IsFalseNoValue_Value2").hasClass("input-validation-error"), "False, Valid Test");
+            });
+
+            test("EqualTo False", function () {
+                ok(!$("#RequiredTests_EqualToFalse_IsFalseHasValue_Value2").hasClass("input-validation-error"), "False, Valid Test");
+                ok($("#RequiredTests_EqualToFalse_IsFalseNoValue_Value2").hasClass("input-validation-error"), "False, Invalid Test");
+                ok(!$("#RequiredTests_EqualToFalse_IsTrueNoValue_Value2").hasClass("input-validation-error"), "True, Valid Test");
+            });
         });                    
     </script>
     <h1 id="qunit-header">
@@ -59,6 +73,36 @@
             <%= Html.EditorFor(m => m.IsTests.GreaterThanDatesValid.Value1)%>
             <%= Html.EditorFor(m => m.IsTests.GreaterThanDatesValid.Value2)%>
             <%= Html.ValidationMessageFor(m => m.IsTests.GreaterThanDatesValid.Value2)%>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToTrue_IsTrueHasValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToTrue_IsTrueHasValue.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToTrue_IsTrueHasValue.Value2)%>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToTrue_IsTrueNoValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToTrue_IsTrueNoValue.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToTrue_IsTrueNoValue.Value2)%>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToTrue_IsFalseNoValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToTrue_IsFalseNoValue.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToTrue_IsFalseNoValue.Value2)%>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToFalse_IsFalseHasValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToFalse_IsFalseHasValue.Value2) %>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToFalse_IsFalseHasValue.Value2) %>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToFalse_IsFalseNoValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToFalse_IsFalseNoValue.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToFalse_IsFalseNoValue.Value2)%>
+        </div>
+        <div>
+            <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToFalse_IsTrueNoValue.Value1) %>
+            <%= Html.EditorFor(m => m.RequiredTests.EqualToFalse_IsTrueNoValue.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.RequiredTests.EqualToFalse_IsTrueNoValue.Value2)%>
         </div>
         <% } %>
     </div>

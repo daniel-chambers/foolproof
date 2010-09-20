@@ -73,7 +73,7 @@ Sys.Mvc.ValidatorRegistry.validators["RequiredIf"] = function (rule) {
                 }
 
             if (dependentValue == null)
-                return true;
+                dependentValue = false
         }
         else
             dependentValue = dependentPropertyElement[0].value;

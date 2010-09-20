@@ -74,6 +74,7 @@
     <Compile Include="Models\EqualToTests.cs" />
     <Compile Include="Models\IsTests.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\RequiredTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Shared\Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
