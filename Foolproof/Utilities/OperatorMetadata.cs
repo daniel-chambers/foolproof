@@ -63,7 +63,7 @@ namespace Foolproof
                             if (value == null || dependentValue == null)
                                 return false;
 
-                            return Comparer<object>.Default.Compare(value, dependentValue) == 1;
+                            return Comparer<object>.Default.Compare(value, dependentValue) >= 1;
                         }
                     }
                 },
@@ -75,7 +75,7 @@ namespace Foolproof
                             if (value == null || dependentValue == null)
                                 return false;
 
-                            return Comparer<object>.Default.Compare(value, dependentValue) == -1;
+                            return Comparer<object>.Default.Compare(value, dependentValue) <= -1;
                         }
                     }
                 },
@@ -90,7 +90,7 @@ namespace Foolproof
                             if (value == null || dependentValue == null)
                                 return false;
 
-                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == 1;
+                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) >= 1;
                         }
                     }
                 },
@@ -105,7 +105,7 @@ namespace Foolproof
                             if (value == null || dependentValue == null)
                                 return false;
 
-                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) == -1;
+                            return Get(Operator.EqualTo).IsValid(value, dependentValue) || Comparer<object>.Default.Compare(value, dependentValue) <= -1;
                         }
                     }
                 },
