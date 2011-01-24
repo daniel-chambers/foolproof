@@ -48,7 +48,7 @@ namespace Foolproof
         
         public Dictionary<string, object> ClientValidationParameters
         {
-            get { return GetClientValidationParameters().ToDictionary(kv => kv.Key, kv => kv.Value); }
+            get { return GetClientValidationParameters().ToDictionary(kv => kv.Key.ToLower(), kv => kv.Value); }
         }
     }
 }

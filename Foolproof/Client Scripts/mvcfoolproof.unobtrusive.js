@@ -43,25 +43,23 @@ foolproof.getName = function (element, dependentPropety) {
     return element.name.substr(0, pos) + dependentPropety;
 };
 
-Sys.Mvc.ValidatorRegistry.validators["is"] = function (rule) {
-    var operator = rule.ValidationParameters["operator"];
-    return function (value, context) {
-        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["dependentproperty"]);
+(function () {
+    jQuery.validator.addMethod("is", function (value, element, params) {
+        var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
+        var operator = params["operator"];
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (foolproof.is(value, operator, dependentValue))
             return true;
 
-        return rule.ErrorMessage;
-    };
-};
+        return false;
+    });
 
-Sys.Mvc.ValidatorRegistry.validators["requiredif"] = function (rule) {
-    var pattern = rule.ValidationParameters["pattern"];
-    var dependentTestValue = rule.ValidationParameters["dependentvalue"];
-    var operator = rule.ValidationParameters["operator"];
-    return function (value, context) {
-        var dependentProperty = foolproof.getName(context.fieldContext.elements[0], rule.ValidationParameters["dependentproperty"]);
+    jQuery.validator.addMethod("requiredif", function (value, element, params) {
+        var dependentProperty = foolproof.getName(element, params["dependentproperty"]);
+        var dependentTestValue = params["dependentvalue"];
+        var operator = params["operator"];
+        var pattern = params["pattern"];
         var dependentPropertyElement = document.getElementsByName(dependentProperty);
         var dependentValue = null;
 
@@ -89,13 +87,11 @@ Sys.Mvc.ValidatorRegistry.validators["requiredif"] = function (rule) {
         else
             return true;
 
-        return rule.ErrorMessage;
-    };
-};
+        return false;
+    });
 
-Sys.Mvc.ValidatorRegistry.validators["requiredifempty"] = function (rule) {
-    return function (value, context) {
-        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["dependentproperty"]);
+    jQuery.validator.addMethod("requiredifempty", function (value, element, params) {
+        var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (dependentValue == null || dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') == "") {
@@ -105,13 +101,11 @@ Sys.Mvc.ValidatorRegistry.validators["requiredifempty"] = function (rule) {
         else
             return true;
 
-        return rule.ErrorMessage;
-    };
-};
+        return false;
+    });
 
-Sys.Mvc.ValidatorRegistry.validators["requiredifnotempty"] = function (rule) {
-    return function (value, context) {
-        var dependentProperty = foolproof.getId(context.fieldContext.elements[0], rule.ValidationParameters["dependentproperty"]);
+    jQuery.validator.addMethod("requiredifnotempty", function (value, element, params) {
+        var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
         var dependentValue = document.getElementById(dependentProperty).value;
 
         if (dependentValue != null && dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "") {
@@ -121,6 +115,45 @@ Sys.Mvc.ValidatorRegistry.validators["requiredifnotempty"] = function (rule) {
         else
             return true;
 
-        return rule.ErrorMessage;
+        return false;
+    });
+
+    var setValidationValues = function (options, ruleName, value) {
+        options.rules[ruleName] = value;
+        if (options.message) {
+            options.messages[ruleName] = options.message;
+        }
     };
-};
+
+    var $Unob = $.validator.unobtrusive;
+
+    $Unob.adapters.add("requiredif", ["dependentproperty", "dependentvalue", "operator", "pattern"], function (options) {
+        var value = {
+            dependentproperty: options.params.dependentproperty,
+            dependentvalue: options.params.dependentvalue,
+            operator: options.params.operator,
+            pattern: options.params.pattern
+        };
+        setValidationValues(options, "requiredif", value);
+    });
+
+    $Unob.adapters.add("is", ["dependentproperty", "operator"], function (options) {
+        setValidationValues(options, "is", {
+            dependentproperty: options.params.dependentproperty,
+            operator: options.params.operator
+        });
+    });
+
+    $Unob.adapters.add("requiredifempty", ["dependentproperty"], function (options) {
+        setValidationValues(options, "is", {
+            dependentproperty: options.params.dependentproperty
+        });
+    });
+
+    $Unob.adapters.add("requiredifnotempty", ["dependentproperty"], function (options) {
+        setValidationValues(options, "is", {
+            dependentproperty: options.params.dependentproperty
+        });
+    });
+})();
+

@@ -21,7 +21,7 @@ namespace Foolproof
         {
             var result = new ModelClientValidationRule()
             {
-                ValidationType = Attribute.ClientTypeName,
+                ValidationType = Attribute.ClientTypeName.ToLower(),
                 ErrorMessage = ErrorMessage       
             };
             

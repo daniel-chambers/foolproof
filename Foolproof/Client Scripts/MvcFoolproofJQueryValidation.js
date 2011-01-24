@@ -50,9 +50,9 @@ __MVC_ApplyValidator_Unknown = function (rules, type, params) {
     rules[type] = params;
 };
 
-jQuery.validator.addMethod("Is", function (value, element, params) {
-    var dependentProperty = foolproof.getId(element, params["DependentProperty"]);
-    var operator = params["Operator"];
+jQuery.validator.addMethod("is", function (value, element, params) {
+    var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
+    var operator = params["operator"];
     var dependentValue = document.getElementById(dependentProperty).value;
 
     if (foolproof.is(value, operator, dependentValue))
@@ -61,11 +61,11 @@ jQuery.validator.addMethod("Is", function (value, element, params) {
     return false;
 });
 
-jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
-    var dependentProperty = foolproof.getName(element, params["DependentProperty"]);
-    var dependentTestValue = params["DependentValue"];
-    var operator = params["Operator"];
-    var pattern = params["Pattern"];
+jQuery.validator.addMethod("requiredif", function (value, element, params) {
+    var dependentProperty = foolproof.getName(element, params["dependentproperty"]);
+    var dependentTestValue = params["dependentvalue"];
+    var operator = params["operator"];
+    var pattern = params["pattern"];
     var dependentPropertyElement = document.getElementsByName(dependentProperty);
     var dependentValue = null;
 
@@ -96,8 +96,8 @@ jQuery.validator.addMethod("RequiredIf", function (value, element, params) {
     return false;
 });
 
-jQuery.validator.addMethod("RequiredIfEmpty", function (value, element, params) {
-    var dependentProperty = foolproof.getId(element, params["DependentProperty"]);
+jQuery.validator.addMethod("requiredifempty", function (value, element, params) {
+    var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
     var dependentValue = document.getElementById(dependentProperty).value;
 
     if (dependentValue == null || dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') == "") {
@@ -110,8 +110,8 @@ jQuery.validator.addMethod("RequiredIfEmpty", function (value, element, params) 
     return false;
 });
 
-jQuery.validator.addMethod("RequiredIfNotEmpty", function (value, element, params) {
-    var dependentProperty = foolproof.getId(element, params["DependentProperty"]);
+jQuery.validator.addMethod("requiredifnotempty", function (value, element, params) {
+    var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
     var dependentValue = document.getElementById(dependentProperty).value;
 
     if (dependentValue != null && dependentValue.toString().replace(/^\s\s*/, '').replace(/\s\s*$/, '') != "") {
