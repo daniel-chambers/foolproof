@@ -20,7 +20,7 @@ namespace Foolproof
 
         public override string DefaultErrorMessage
         {
-            get { return "{0} is required due to {1} being empty."; }
+            get { return "{0} is required due to {1} not being empty."; }
         }
     }
 }
