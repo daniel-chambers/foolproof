@@ -22,6 +22,18 @@
                 ok(!$("#IsTests_GreaterThanDates_Value2").hasClass("input-validation-error"), "Valid Test");
             });
 
+            test("GreaterThan Decimals", function () {
+                ok(!$("#IsTests_GreaterThanDecimals_Value2").hasClass("input-validation-error"), "Valid Test");
+            });
+
+            test("GreaterThan Integers", function () {
+                ok(!$("#IsTests_GreaterThanInts_Value2").hasClass("input-validation-error"), "Valid Test");
+            });
+
+            test("LessThan Integers", function () {
+                ok(!$("#IsTests_LessThanInts_Value2").hasClass("input-validation-error"), "Valid Test");
+            });
+
             module("Required If");
 
             test("EqualTo True", function () {
@@ -73,6 +85,21 @@
             <%= Html.EditorFor(m => m.IsTests.GreaterThanDatesValid.Value1)%>
             <%= Html.EditorFor(m => m.IsTests.GreaterThanDatesValid.Value2)%>
             <%= Html.ValidationMessageFor(m => m.IsTests.GreaterThanDatesValid.Value2)%>
+        </div>
+        <div>
+            <%= Html.EditorFor(m => m.IsTests.GreaterThanDecimalValid.Value1)%>
+            <%= Html.EditorFor(m => m.IsTests.GreaterThanDecimalValid.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.GreaterThanDecimalValid.Value2)%>
+        </div>
+        <div>
+            <%= Html.EditorFor(m => m.IsTests.GreaterThanIntValid.Value1)%>
+            <%= Html.EditorFor(m => m.IsTests.GreaterThanIntValid.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.GreaterThanIntValid.Value2)%>
+        </div>
+        <div>
+            <%= Html.EditorFor(m => m.IsTests.LessThanIntValid.Value1)%>
+            <%= Html.EditorFor(m => m.IsTests.LessThanIntValid.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.LessThanIntValid.Value2)%>
         </div>
         <div>
             <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToTrue_IsTrueHasValue.Value1) %>
