@@ -155,13 +155,13 @@ foolproof.getName = function (element, dependentPropety) {
     });
 
     $Unob.adapters.add("requiredifempty", ["dependentproperty"], function (options) {
-        setValidationValues(options, "is", {
+        setValidationValues(options, "requiredifempty", {
             dependentproperty: options.params.dependentproperty
         });
     });
 
     $Unob.adapters.add("requiredifnotempty", ["dependentproperty"], function (options) {
-        setValidationValues(options, "is", {
+        setValidationValues(options, "requiredifnotempty", {
             dependentproperty: options.params.dependentproperty
         });
     });
