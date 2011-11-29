@@ -34,6 +34,12 @@
                 ok(!$("#IsTests_LessThanInts_Value2").hasClass("input-validation-error"), "Valid Test");
             });
 
+            module("IsWithPassNull");
+
+            test("EqualTo (PassOnNull) Strings", function () {
+                ok(!$("#IsPassOnNullTests_EqualToStringsValid_Value2").hasClass("input-validation-error"), "Valid Test");
+            });            
+            
             module("Required If");
 
             test("EqualTo True", function () {
@@ -100,6 +106,11 @@
             <%= Html.EditorFor(m => m.IsTests.LessThanIntValid.Value1)%>
             <%= Html.EditorFor(m => m.IsTests.LessThanIntValid.Value2)%>
             <%= Html.ValidationMessageFor(m => m.IsTests.LessThanIntValid.Value2)%>
+        </div>
+        <div>
+            <%= Html.EditorFor(m => m.IsPassOnNullTests.EqualToStringsValid.Value1)%>
+            <%= Html.EditorFor(m => m.IsPassOnNullTests.EqualToStringsValid.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.IsPassOnNullTests.EqualToStringsValid.Value2)%>
         </div>
         <div>
             <%= Html.CheckBoxFor(m => m.RequiredTests.EqualToTrue_IsTrueHasValue.Value1) %>

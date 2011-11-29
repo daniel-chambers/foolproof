@@ -18,6 +18,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,6 +74,7 @@
     </Compile>
     <Compile Include="Models\EqualToTests.cs" />
     <Compile Include="Models\IsTests.cs" />
+    <Compile Include="Models\IsWithPassOnNull.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\RequiredTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

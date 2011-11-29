@@ -15,6 +15,14 @@ namespace Foolproof.UnitTests
             public DateTime? Value2 { get; set; }
         }
 
+        private class DateModelWithPassOnNull : ModelBase<LessThanAttribute>
+        {
+            public DateTime? Value1 { get; set; }
+
+            [LessThan("Value1", PassOnNull = true)]
+            public DateTime? Value2 { get; set; }
+        }
+
         private class Int16Model : ModelBase<LessThanAttribute>
         {
             public Int16 Value1 { get; set; }
@@ -56,6 +64,20 @@ namespace Foolproof.UnitTests
         {
             var model = new DateModel() { Value1 = DateTime.Now };
             Assert.IsFalse(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void DateWithValue1NullIsValid()
+        {
+            var model = new DateModelWithPassOnNull() { Value2 = DateTime.Now };
+            Assert.IsTrue(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void DateWithValue2NullIsValid()
+        {
+            var model = new DateModelWithPassOnNull() { Value1 = DateTime.Now };
+            Assert.IsTrue(model.IsValid("Value2"));
         }  
 
         [TestMethod()]

@@ -1,5 +1,17 @@
 ﻿var foolproof = function () { };
-foolproof.is = function (value1, operator, value2) {
+foolproof.is = function (value1, operator, value2, passOnNull) {
+    if (passOnNull) {
+        var isNullish = function (input) {
+            return input == null || input == undefined || input == "";
+        };
+
+        var value1nullish = isNullish(value1);
+        var value2nullish = isNullish(value2);
+
+        if ((value1nullish && !value2nullish) || (value2nullish && !value1nullish))
+            return true;
+    }
+
     var isNumeric = function (input) {
         return (input - 0) == input && input.length > 0;
     };
@@ -63,9 +75,10 @@ __MVC_ApplyValidator_Unknown = function (rules, type, params) {
 jQuery.validator.addMethod("is", function (value, element, params) {
     var dependentProperty = foolproof.getId(element, params["dependentproperty"]);
     var operator = params["operator"];
+    var passOnNull = params["passonnull"];    
     var dependentValue = document.getElementById(dependentProperty).value;
 
-    if (foolproof.is(value, operator, dependentValue))
+    if (foolproof.is(value, operator, dependentValue, passOnNull))
         return true;
 
     return false;

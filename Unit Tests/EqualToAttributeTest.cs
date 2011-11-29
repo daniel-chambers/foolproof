@@ -16,6 +16,14 @@ namespace Foolproof.UnitTests
             public string Value2 { get; set; }
         }
 
+        private class ModelWithPassOnNull : ModelBase<EqualToAttribute>
+        {
+            public string Value1 { get; set; }
+
+            [EqualTo("Value1", PassOnNull = true)]
+            public string Value2 { get; set; }
+        }
+
         [TestMethod()]
         public void IsValid()
         {
@@ -49,6 +57,20 @@ namespace Foolproof.UnitTests
         {
             var model = new Model() { Value1 = "hello" };
             Assert.IsFalse(model.IsValid("Value2"));
+        }    
+
+        [TestMethod()]
+        public void IsValidWithValue1Null()
+        {
+            var model = new ModelWithPassOnNull() { Value2 = "hello" };
+            Assert.IsTrue(model.IsValid("Value2"));            
+        }
+
+        [TestMethod()]
+        public void IsValidWithValue2Null()
+        {
+            var model = new ModelWithPassOnNull() { Value1 = "hello" };
+            Assert.IsTrue(model.IsValid("Value2"));
         }    
     }
 }
