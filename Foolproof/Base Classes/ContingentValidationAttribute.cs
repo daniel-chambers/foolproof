@@ -37,9 +37,17 @@ namespace Foolproof
 
         private object GetDependentPropertyValue(object container)
         {
-            return container.GetType()
-                .GetProperty(DependentProperty)
-                .GetValue(container, null);
+            var currentType = container.GetType();
+            var value = container;
+
+            foreach (string propertyName in DependentProperty.Split('.'))
+            {
+                var property = currentType.GetProperty(propertyName);
+                value = property.GetValue(value, null);
+                currentType = property.PropertyType;
+            }
+
+            return value;
         }
         
         protected override IEnumerable<KeyValuePair<string, object>> GetClientValidationParameters()

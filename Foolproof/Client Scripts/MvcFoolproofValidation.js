@@ -57,7 +57,7 @@ foolproof.is = function (value1, operator, value2, passOnNull) {
 
 foolproof.getId = function (element, dependentPropety) {
     var pos = element.id.lastIndexOf("_") + 1;
-    return element.id.substr(0, pos) + dependentPropety;
+    return element.id.substr(0, pos) + dependentPropety.replace(/\./g, "_");
 };
 
 foolproof.getName = function (element, dependentPropety) {

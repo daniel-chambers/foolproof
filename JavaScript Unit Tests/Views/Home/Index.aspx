@@ -13,6 +13,10 @@
                 ok(!$("#IsTests_EqualToStringsValid_Value2").hasClass("input-validation-error"), "Valid Test");
             });
 
+            test("EqualTo Strings Complex", function () {
+                ok(!$("#IsTests_EqualToStringsComplexValid_Value2").hasClass("input-validation-error"), "Valid Test");
+            });
+
             test("NotEqualTo Strings", function () {
                 ok($("#IsTests_NotEqualToStringsInvalid_Value2").hasClass("input-validation-error"), "Invalid Test");
                 ok(!$("#IsTests_NotEqualToStringsValid_Value2").hasClass("input-validation-error"), "Valid Test");
@@ -76,6 +80,11 @@
             <%= Html.EditorFor(m => m.IsTests.EqualToStringsInvalid.Value1)%>
             <%= Html.EditorFor(m => m.IsTests.EqualToStringsInvalid.Value2)%>
             <%= Html.ValidationMessageFor(m => m.IsTests.EqualToStringsInvalid.Value2)%>
+        </div>
+        <div>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsComplexValid.Value1.Value)%>
+            <%= Html.EditorFor(m => m.IsTests.EqualToStringsComplexValid.Value2)%>
+            <%= Html.ValidationMessageFor(m => m.IsTests.EqualToStringsComplexValid.Value2)%>
         </div>
         <div>
             <%= Html.EditorFor(m => m.IsTests.NotEqualToStringsValid.Value1)%>

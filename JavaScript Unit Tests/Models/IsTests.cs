@@ -15,6 +15,19 @@ namespace Foolproof.UnitTests.JavaScript.Models
             public string Value2 { get; set; }
         }
 
+        public class EqualToStringsComplex
+        {
+            public class SubModel
+            {
+                public string Value { get; set; }
+            }
+
+            public SubModel Value1 { get; set; }
+
+            [EqualTo("Value1.Value")]
+            public string Value2 { get; set; }
+        }
+
         public class NotEqualToStrings
         {
             public string Value1 { get; set; }
@@ -57,6 +70,7 @@ namespace Foolproof.UnitTests.JavaScript.Models
 
         public EqualToStrings EqualToStringsValid { get; set; }
         public EqualToStrings EqualToStringsInvalid { get; set; }
+        public EqualToStringsComplex EqualToStringsComplexValid { get; set; }
         public NotEqualToStrings NotEqualToStringsValid { get; set; }
         public NotEqualToStrings NotEqualToStringsInvalid { get; set; }
         public GreaterThanDates GreaterThanDatesValid { get; set; }
@@ -69,6 +83,7 @@ namespace Foolproof.UnitTests.JavaScript.Models
         {
             EqualToStringsValid = new EqualToStrings() { Value1 = "hello", Value2 = "hello" };
             EqualToStringsInvalid = new EqualToStrings() { Value1 = "hello", Value2 = "goodbye" };
+            EqualToStringsComplexValid = new EqualToStringsComplex() { Value1 = new EqualToStringsComplex.SubModel() { Value = "hello"}, Value2 = "hello"};
             NotEqualToStringsValid = new NotEqualToStrings() { Value1 = "hello", Value2 = "goodbye" };
             NotEqualToStringsInvalid = new NotEqualToStrings() { Value1 = "hello", Value2 = "hello" };
             GreaterThanDatesValid = new GreaterThanDates() { Value1 = DateTime.Now.AddDays(-1), Value2 = DateTime.Now };
