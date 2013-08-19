@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foolproof
@@ -9,8 +8,6 @@ namespace Foolproof
     [AttributeUsage(AttributeTargets.Property)]
     public abstract class ModelAwareValidationAttribute : ValidationAttribute
     {
-        public ModelAwareValidationAttribute() { }
-        
         static ModelAwareValidationAttribute()
         {
             Register.All();            
@@ -38,7 +35,7 @@ namespace Foolproof
 
         public virtual string ClientTypeName
         {
-            get { return this.GetType().Name.Replace("Attribute", ""); }
+            get { return GetType().Name.Replace("Attribute", ""); }
         }
 
         protected virtual IEnumerable<KeyValuePair<string, object>> GetClientValidationParameters()
@@ -49,6 +46,16 @@ namespace Foolproof
         public Dictionary<string, object> ClientValidationParameters
         {
             get { return GetClientValidationParameters().ToDictionary(kv => kv.Key.ToLower(), kv => kv.Value); }
+        }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var container = validationContext.ObjectInstance;
+
+            if (!IsValid(value, container))
+                return new ValidationResult(FormatErrorMessage(validationContext.DisplayName), validationContext.MemberName == null ? null : new [] { validationContext.MemberName });
+
+            return ValidationResult.Success;
         }
     }
 }
