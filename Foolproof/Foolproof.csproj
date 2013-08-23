@@ -71,7 +71,6 @@
     <Compile Include="RequiredIfFalse.cs" />
     <Compile Include="RequiredIfTrue.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />

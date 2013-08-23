@@ -36,7 +36,7 @@ namespace Foolproof
 
         public override bool IsValid(object value, object dependentValue, object container)
         {
-            if (PassOnNull && (value == null || dependentValue == null) && (value != null || dependentValue != null))
+            if (PassOnNull && (value == null || dependentValue == null))
                 return true;
 
             return _metadata.IsValid(value, dependentValue);

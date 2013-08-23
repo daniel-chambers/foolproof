@@ -60,17 +60,38 @@ namespace Foolproof.UnitTests
         }    
 
         [TestMethod()]
-        public void IsValidWithValue1Null()
+        public void WhenPassOnNull_IsValidWithValue1Null()
         {
             var model = new ModelWithPassOnNull() { Value2 = "hello" };
             Assert.IsTrue(model.IsValid("Value2"));            
         }
 
         [TestMethod()]
-        public void IsValidWithValue2Null()
+        public void WhenPassOnNull_IsValidWithValue2Null()
         {
             var model = new ModelWithPassOnNull() { Value1 = "hello" };
             Assert.IsTrue(model.IsValid("Value2"));
-        }    
+        }
+
+        [TestMethod()]
+        public void WhenPassOnNull_IsValidWithBothNull()
+        {
+            var model = new ModelWithPassOnNull();
+            Assert.IsTrue(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void WhenPassOnNull_IsValidWithEqual()
+        {
+            var model = new ModelWithPassOnNull { Value1 = "hello", Value2 = "hello" };
+            Assert.IsTrue(model.IsValid("Value2"));
+        }
+
+        [TestMethod()]
+        public void WhenPassOnNull_IsNotValidWithWhenNotEqual()
+        {
+            var model = new ModelWithPassOnNull { Value1 = "hello1", Value2 = "hello" };
+            Assert.IsFalse(model.IsValid("Value2"));
+        }
     }
 }
