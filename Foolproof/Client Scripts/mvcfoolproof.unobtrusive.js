@@ -23,7 +23,7 @@ foolproof.is = function (value1, operator, value2, passOnNull) {
     };
 
     var isBool = function (input) {
-        return input === true || input === false || input === "true" || input === "false";
+        return input === true || input === false || String.prototype.toLowerCase.call(input) === "true" || String.prototype.toLowerCase.call(input) === "false";
     };
 
     if (isDate(value1)) {
@@ -31,8 +31,8 @@ foolproof.is = function (value1, operator, value2, passOnNull) {
         value2 = Date.parse(value2);
     }
     else if (isBool(value1)) {
-        if (value1 == "false") value1 = false;
-        if (value2 == "false") value2 = false;
+        if (String.prototype.toLowerCase.call(value1) === "false") value1 = false;
+        if (String.prototype.toLowerCase.call(value2) === "false") value2 = false;
         value1 = !!value1;
         value2 = !!value2;
     }
